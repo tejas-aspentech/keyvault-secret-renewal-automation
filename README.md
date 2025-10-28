@@ -1,12 +1,9 @@
-Here’s a **README.md** draft for your GitHub repository that starts with the architecture diagram and includes a detailed explanation of the script:
-
-***
-
 ## **Azure Key Vault Secret Renewal Automation**
 
 ### **Architecture**
 
-[image.png](https://asptechinc.sharepoint.com/_api/v2.1/sites/asptechinc.sharepoint.com,e8c7304f-6cbf-45b7-9166-a29e9dbf2e9f,ffdaebd3-5abc-4439-8445-207af9cd9de7/lists/3a99647b-d5fd-4cc8-817e-cf09fd6648cf/items/4c74bfd1-99be-4152-9228-f052f5510f93/driveItem/thumbnails/0/c960x99999/content?prefer=noRedirect,extendCacheMaxAge&clientType=modernWebPart&ow=912&oh=684&format=webp)
+<img width="912" height="684" alt="image" src="https://github.com/user-attachments/assets/da27d809-7f19-447c-beed-af00c1d101e1" />
+
 
 **Flow Explanation:**
 
