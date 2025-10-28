@@ -2,7 +2,8 @@
 
 ### **Architecture**
 
-<img width="912" height="684" alt="image" src="https://github.com/user-attachments/assets/da27d809-7f19-447c-beed-af00c1d101e1" />
+<img width="837" height="619" alt="image" src="https://github.com/user-attachments/assets/fc37c5d4-272d-4e89-a626-4f9a768af7f5" />
+
 
 
 **Flow Explanation:**
