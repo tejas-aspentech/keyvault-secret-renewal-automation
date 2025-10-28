@@ -6,7 +6,7 @@ Here’s a **README.md** draft for your GitHub repository that starts with the a
 
 ### **Architecture**
 
-image.png
+[image.png](https://asptechinc.sharepoint.com/_api/v2.1/sites/asptechinc.sharepoint.com,e8c7304f-6cbf-45b7-9166-a29e9dbf2e9f,ffdaebd3-5abc-4439-8445-207af9cd9de7/lists/3a99647b-d5fd-4cc8-817e-cf09fd6648cf/items/4c74bfd1-99be-4152-9228-f052f5510f93/driveItem/thumbnails/0/c960x99999/content?prefer=noRedirect,extendCacheMaxAge&clientType=modernWebPart&ow=912&oh=684&format=webp)
 
 **Flow Explanation:**
 
@@ -57,12 +57,4 @@ This script automates the renewal of secrets in Azure Key Vault and sends an ema
     *   Builds an HTML email summarizing renewed secrets.
     *   Sends the email using SMTP (currently via `Send-MailMessage`).
 
-***
 
-### **Script**
-
-```powershell
-# Full script here (include your latest version)
-```
-
-***
