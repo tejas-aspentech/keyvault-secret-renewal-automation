@@ -1,6 +1,5 @@
 Import-Module Az.Accounts
 Import-Module Az.KeyVault
-Import-Module PoshMailKit
 
 # Variables
 $subscriptionId     = "98d6ac31-3d59-42ab-99cd-f4dd44e9ba4c"
@@ -8,8 +7,8 @@ $tenantId           = "6d13c9cb-eb66-4cf1-b1c6-9ae7377847a9"
 $resourceGroupName  = "sandbox-1"
 $kvName             = "sandbox-1-keyvault"
 $renewThresholdDays = 30
-
 # Email settings
+
 $smtpServer = "smtp.office365.com"
 $smtpPort = 587
 $from = "tejas.s@aspentech.com"
@@ -23,14 +22,12 @@ function Generate-RandomPassword {
         [int]$length = 20,
         [int]$nonAlphaNumCount = 4
     )
-
     $alphaNumChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.ToCharArray()
     $specialChars = '!@#$%^&*()-_=+[]{}|;:,.<>?'.ToCharArray()
-
     $passwordChars = @()
     $passwordChars += (1..($length - $nonAlphaNumCount) | ForEach-Object { $alphaNumChars | Get-Random })
     $passwordChars += (1..$nonAlphaNumCount | ForEach-Object { $specialChars | Get-Random })
-
+    # Shuffle the characters
     $shuffledPassword = ($passwordChars | Get-Random -Count $passwordChars.Count) -join ''
     return $shuffledPassword
 }
@@ -45,25 +42,21 @@ $kv = Get-AzKeyVault -VaultName $kvName -ResourceGroupName $resourceGroupName
 # Get all secrets
 $secrets = Get-AzKeyVaultSecret -VaultName $kvName
 $updatedSecrets = @()
-
 foreach ($secret in $secrets) {
     $secretName = $secret.Name
     $secretBundle = Get-AzKeyVaultSecret -VaultName $kvName -Name $secretName
     $expiryDate = $secretBundle.Attributes.Expires
-
     if ($expiryDate -and ((Get-Date).AddDays($renewThresholdDays) -ge $expiryDate)) {
         Write-Output "Secret '$secretName' is expiring on $expiryDate. Renewing..."
-
         $newSecretValue = Generate-RandomPassword
         $newExpiryDate = (Get-Date).AddYears(1)
-
         Set-AzKeyVaultSecret -VaultName $kvName -Name $secretName `
             -SecretValue (ConvertTo-SecureString $newSecretValue -AsPlainText -Force) `
             -Expires $newExpiryDate
+        # Verify update
         $updatedSecret = Get-AzKeyVaultSecret -VaultName $kvName -Name $secretName
         Write-Output "Post-update expiry: $($updatedSecret.Attributes.Expires)"
         Write-Output "Post-update value: $($updatedSecret.SecretValueText)"
-
         $updatedSecrets += [PSCustomObject]@{
             Name   = $secretName
             Expiry = $newExpiryDate.ToString("yyyy-MM-dd")
@@ -80,7 +73,6 @@ if ($updatedSecrets.Count -gt 0) {
         $htmlTable += "<tr><td>$($item.Name)</td><td>$($item.Expiry)</td></tr>"
     }
     $htmlTable += "</table>"
-
     $htmlBody = @"
 <html>
 <body>
@@ -102,8 +94,4 @@ $htmlTable
 </html>
 "@
 }
-
-# Send email securely using PoshMailKit
-Send-MKMailMessage -From $from -To $to -Subject $subject -Body $htmlBody `
-    -BodyFormat Html -SmtpServer $smtpServer -Port $smtpPort -UseSsl `
-    -Credential $credential -RequireSecureConnection
+Send-MailMessage -From $from -To $to -Subject $subject -Body $htmlBody -BodyAsHtml -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential
