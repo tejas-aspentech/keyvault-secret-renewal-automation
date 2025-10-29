@@ -4,8 +4,8 @@ Import-Module Az.KeyVault
 # Variables
 $subscriptionId     = "98d6ac31-3d59-42ab-99cd-f4dd44e9ba4c"
 $tenantId           = "6d13c9cb-eb66-4cf1-b1c6-9ae7377847a9"
-$resourceGroupName  = "sandbox-1"
-$kvName             = "sandbox-1-keyvault"
+$resourceGroupName  = "dev"
+$kvName             = "check1"
 $renewThresholdDays = 30
 # Email settings
 
@@ -66,7 +66,7 @@ foreach ($secret in $secrets) {
     }
 }
 
-# Email Notification
+# Email Notification 
 if ($updatedSecrets.Count -gt 0) {
     $htmlTable = "<table border='1' cellpadding='5' cellspacing='0'><tr><th>Secret Name</th><th>New Expiration Date</th></tr>"
     foreach ($item in $updatedSecrets) {
