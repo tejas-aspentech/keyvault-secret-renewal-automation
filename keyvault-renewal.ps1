@@ -14,7 +14,7 @@ $smtpPort = 587
 $from = "tejas.s@aspentech.com"
 $to = "tejas.s@aspentech.com"
 $subject = "Azure Key Vault Secret Renewal Summary"
-$credential = Get-AutomationPSCredential -Name "sandbox-automation-cred"
+$credential = Get-AutomationPSCredential -Name "dev-mike-account"
 
 # Password generator function
 function Generate-RandomPassword {
