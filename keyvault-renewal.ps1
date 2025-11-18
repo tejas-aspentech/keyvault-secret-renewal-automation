@@ -1,7 +1,7 @@
 Import-Module Az.Accounts
 Import-Module Az.KeyVault
 
-# Variables
+# Variables 
 $subscriptionId     = "98d6ac31-3d59-42ab-99cd-f4dd44e9ba4c"
 $tenantId           = "6d13c9cb-eb66-4cf1-b1c6-9ae7377847a9"
 $resourceGroupName  = "sandbox-1"
